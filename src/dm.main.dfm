@@ -3,24 +3,15 @@ object dmReport: TdmReport
   OnCreate = DataModuleCreate
   Height = 480
   Width = 527
-  object connReportDB: TFDConnection
-    Params.Strings = (
-      'ConnectionDef=ReportDB')
-    ResourceOptions.AssignedValues = [rvAutoReconnect]
-    ResourceOptions.AutoReconnect = True
-    LoginPrompt = False
-    UpdateTransaction = trsReportDB
-    BeforeConnect = connReportDBBeforeConnect
-    Left = 16
-    Top = 16
-  end
   object trsReportDB: TFDTransaction
     Connection = connReportDB
     Left = 16
-    Top = 220
+    Top = 212
   end
   object qryBanco: TFDQuery
     Connection = connReportDB
+    Transaction = trsReportDB
+    UpdateTransaction = trsReportDB
     SQL.Strings = (
       'SELECT * FROM BANCO')
     Left = 344
@@ -88,6 +79,8 @@ object dmReport: TdmReport
   end
   object qryCendente: TFDQuery
     Connection = connReportDB
+    Transaction = trsReportDB
+    UpdateTransaction = trsReportDB
     SQL.Strings = (
       'SELECT * FROM CEDENTE')
     Left = 344
@@ -96,7 +89,6 @@ object dmReport: TdmReport
       FieldName = 'ID'
       Origin = 'ID'
       ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
     end
     object qryCendenteNome: TStringField
       FieldName = 'Nome'
@@ -202,6 +194,8 @@ object dmReport: TdmReport
   end
   object qryTitulo: TFDQuery
     Connection = connReportDB
+    Transaction = trsReportDB
+    UpdateTransaction = trsReportDB
     SQL.Strings = (
       'SELECT * FROM TITULO')
     Left = 344
@@ -210,7 +204,6 @@ object dmReport: TdmReport
       FieldName = 'ID'
       Origin = 'ID'
       ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
     end
     object qryTituloNossoNum: TStringField
       FieldName = 'NossoNum'
@@ -442,6 +435,10 @@ object dmReport: TdmReport
       Origin = 'Sacado_Fone'
       Size = 100
     end
+    object qryTituloMensagem2: TBlobField
+      FieldName = 'Mensagem2'
+      Origin = 'Mensagem2'
+    end
   end
   object dsBanco: TDataSource
     DataSet = qryBanco
@@ -468,6 +465,8 @@ object dmReport: TdmReport
   end
   object qrySacado: TFDQuery
     Connection = connReportDB
+    Transaction = trsReportDB
+    UpdateTransaction = trsReportDB
     SQL.Strings = (
       'SELECT * FROM SACADO')
     Left = 344
@@ -476,7 +475,6 @@ object dmReport: TdmReport
       FieldName = 'ID'
       Origin = 'ID'
       ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
     end
     object qrySacadoNomeSacado: TStringField
       FieldName = 'NomeSacado'
@@ -551,6 +549,7 @@ object dmReport: TdmReport
   end
   object FDGUIxLoginDialog1: TFDGUIxLoginDialog
     Provider = 'Forms'
+    HistoryEnabled = True
     Left = 120
     Top = 17
   end
@@ -563,5 +562,15 @@ object dmReport: TdmReport
     Provider = 'Forms'
     Left = 120
     Top = 177
+  end
+  object connReportDB: TFDConnection
+    Params.Strings = (
+      'ConnectionDef=ReportDB')
+    Connected = True
+    LoginPrompt = False
+    Transaction = trsReportDB
+    UpdateTransaction = trsReportDB
+    Left = 23
+    Top = 24
   end
 end

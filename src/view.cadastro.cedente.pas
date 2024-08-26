@@ -12,7 +12,8 @@ uses
   FireDAC.VCLUI.Async, FireDAC.Comp.UI, FireDAC.Comp.Client, Data.DB,
   view.child.base, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, FireDAC.Comp.DataSet, Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.StdCtrls,
-  Vcl.Mask;
+  Vcl.Mask, System.ImageList, Vcl.ImgList, Vcl.StdActns, System.Actions,
+  Vcl.ActnList, Vcl.ComCtrls, Vcl.ToolWin, Vcl.Imaging.pngimage;
 
 type
   TViewCadCedente = class(TViiewChildBase)
@@ -39,45 +40,46 @@ type
     qryCadCedenteUF: TStringField;
     qryCadCedenteCEP: TStringField;
     qryCadCedenteTelefone: TStringField;
-    Label1: TLabel;
-    DBEdit1: TDBEdit;
-    Label2: TLabel;
-    DBEdit2: TDBEdit;
-    Label3: TLabel;
-    DBEdit3: TDBEdit;
-    Label4: TLabel;
-    DBEdit4: TDBEdit;
-    Label5: TLabel;
-    DBEdit5: TDBEdit;
-    Label6: TLabel;
-    DBEdit6: TDBEdit;
-    Label7: TLabel;
-    DBEdit7: TDBEdit;
-    Label8: TLabel;
-    DBEdit8: TDBEdit;
-    Label9: TLabel;
-    DBEdit9: TDBEdit;
-    Label10: TLabel;
-    DBEdit10: TDBEdit;
-    Label11: TLabel;
-    DBEdit11: TDBEdit;
-    Label12: TLabel;
-    DBEdit12: TDBEdit;
-    Label13: TLabel;
-    DBEdit13: TDBEdit;
-    Label14: TLabel;
-    DBEdit14: TDBEdit;
-    Label15: TLabel;
-    DBEdit15: TDBEdit;
-    Label16: TLabel;
-    DBEdit16: TDBEdit;
-    Label17: TLabel;
-    DBEdit17: TDBEdit;
-    Label18: TLabel;
-    DBEdit18: TDBEdit;
-    Label19: TLabel;
-    DBEdit19: TDBEdit;
     nvCadCedente: TDBNavigator;
+    lblTitle1: TLabel;
+    dbedtNome: TDBEdit;
+    lblTitle2: TLabel;
+    dbedtCodigoCedente: TDBEdit;
+    lblTitle3: TLabel;
+    dbedtCodigoTransmissao: TDBEdit;
+    lblTitle4: TLabel;
+    dbedtAgenciaDigito: TDBEdit;
+    lblTitle5: TLabel;
+    dbedtConta: TDBEdit;
+    lblTitle6: TLabel;
+    dbedtAgencia: TDBEdit;
+    lblTitle7: TLabel;
+    dbedtModalidade: TDBEdit;
+    lblTitle8: TLabel;
+    dbedtContaDigito: TDBEdit;
+    lblTitle9: TLabel;
+    dbedtConvenio: TDBEdit;
+    lblTitle10: TLabel;
+    dbedtCNPJCPF: TDBEdit;
+    lblTitle11: TLabel;
+    dbedtResponEmissao: TDBEdit;
+    lblTitle12: TLabel;
+    dbedtTipoInscricao: TDBEdit;
+    grp1: TGroupBox;
+    lblTitle13: TLabel;
+    dbedtLogradouro: TDBEdit;
+    lblTitle14: TLabel;
+    dbedtNumeroRes: TDBEdit;
+    lblTitle15: TLabel;
+    dbedtComplemento: TDBEdit;
+    lblTitle16: TLabel;
+    dbedtBairro: TDBEdit;
+    lblTitle17: TLabel;
+    dbedtCidade: TDBEdit;
+    lblTitle18: TLabel;
+    dbedtUF: TDBEdit;
+    lblTitle19: TLabel;
+    dbedtTelefone: TDBEdit;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }

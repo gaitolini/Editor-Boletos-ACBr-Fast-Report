@@ -11,11 +11,12 @@ uses
   FireDAC.VCLUI.Wait, FireDAC.VCLUI.Login, FireDAC.VCLUI.Error,
   FireDAC.VCLUI.Async, FireDAC.Comp.UI, FireDAC.Comp.Client, Data.DB,
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
-  FireDAC.Comp.DataSet, Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.StdCtrls, Vcl.Mask;
+  FireDAC.Comp.DataSet, Vcl.ExtCtrls, Vcl.DBCtrls, Vcl.StdCtrls, Vcl.Mask,
+  System.ImageList, Vcl.ImgList, Vcl.StdActns, System.Actions, Vcl.ActnList,
+  Vcl.ComCtrls, Vcl.ToolWin, Vcl.Imaging.pngimage;
 
 type
   TViewCadBanco = class(TViiewChildBase)
-    nvCadBanco: TDBNavigator;
     qryCadBanco: TFDQuery;
     dsCadBanco: TDataSource;
     qryCadBancoID: TFDAutoIncField;
@@ -25,19 +26,20 @@ type
     qryCadBancoDirLogo: TStringField;
     qryCadBancoOrientacoesBanco: TStringField;
     qryCadBancoCIP: TStringField;
-    qryCadBancoTESTESTR: TStringField;
     Label1: TLabel;
-    DBEdit1: TDBEdit;
     Label2: TLabel;
-    DBEdit2: TDBEdit;
+    DBEdit1: TDBEdit;
     Label3: TLabel;
-    DBEdit3: TDBEdit;
+    DBEdit2: TDBEdit;
     Label4: TLabel;
-    DBEdit4: TDBEdit;
+    DBEdit3: TDBEdit;
     Label5: TLabel;
-    DBEdit5: TDBEdit;
+    DBEdit4: TDBEdit;
     Label6: TLabel;
+    DBEdit5: TDBEdit;
+    Label7: TLabel;
     DBEdit6: TDBEdit;
+    nvCadBanco: TDBNavigator;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }

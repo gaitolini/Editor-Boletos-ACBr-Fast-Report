@@ -144,15 +144,15 @@
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="src\view.main.pas">
-            <Form>MainForm</Form>
+            <Form>ViewMain</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="src\view.child.base.pas">
             <Form>ViiewChildBase</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="src\uFormConsultaBase.pas">
-            <Form>FormConsultaBase</Form>
+        <DCCReference Include="src\view.consulta.base.pas">
+            <Form>ViewConsultaBase</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="src\view.cadastro.cedente.pas">
@@ -167,6 +167,31 @@
             <Form>ViewCadastroTitulo</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\view.base.pas">
+            <Form>ViewBase</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\view.base.cadastro.pas">
+            <Form>ViewBaseCadastro</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\view.cadastro.bancos.pas">
+            <Form>ViewCadastroBancos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\view.base.consulta.pas">
+            <Form>ViewBaseConsultas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\view.consulta.banco.pas">
+            <Form>viewConsultaBanco</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\view.consulta.bancos.pas">
+            <Form>ViewConsultaBancos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\control.pool.connection.pas"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

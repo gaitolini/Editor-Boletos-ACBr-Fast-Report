@@ -31,7 +31,7 @@ uses
      ACBrImage,
      ACBrDelphiZXingQRCode,
      Vcl.Imaging.jpeg,
-     Vcl.StdActns;
+     Vcl.StdActns, Vcl.WinXCtrls, RLReport, RLBarcode;
 
 type
   TfrxReportList = class(TObject)
@@ -50,7 +50,7 @@ type
     property Count: Integer read GetCount;
   end;
 
-  TMainForm = class(TForm)
+  TViewMain = class(TForm)
     StatusBar: TStatusBar;
     ActionList1: TActionList;
     FileNew1: TAction;
@@ -75,7 +75,6 @@ type
     MainMenu1: TMainMenu;
     tb1: TToolButton;
     tb2: TToolButton;
-    frxBarCodeObject1: TfrxBarCodeObject;
     tb3: TToolButton;
     tbCadBanco: TToolButton;
     actMenuCadBanco: TAction;
@@ -90,6 +89,11 @@ type
     tbConsBanco: TToolButton;
     tbConsCedente: TToolButton;
     tbConsTitulo: TToolButton;
+    SplitView1: TSplitView;
+    pgc1: TPageControl;
+    pnl1: TPanel;
+    btnOpenPanel: TButton;
+    RLBarcode1: TRLBarcode;
     procedure FileNew1Execute(Sender: TObject);
     procedure FileExit1Execute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -102,6 +106,8 @@ type
     procedure actMenuConsBancoExecute(Sender: TObject);
     procedure actMenuCadCendenteExecute(Sender: TObject);
     procedure actMenuCadTituloExecute(Sender: TObject);
+    procedure btnOpenPanelClick(Sender: TObject);
+    procedure actMenuConsTituloExecute(Sender: TObject);
   private
     { Private declarations }
     FReportList: TfrxReportList;
@@ -109,19 +115,19 @@ type
     procedure frxReportBeforePrint(Sender: TfrxReportComponent);
     procedure FormActivateChild(Sender: TObject);
     procedure FormCloseChild(Sender: TObject; var Action: TCloseAction);
-    procedure AbreForm<T: TForm>(aParent: TWinControl);
+    procedure AbreForm<T: TForm>(aParent: TWinControl; aDocked: Boolean = true);
   public
     { Public declarations }
   end;
 
 var
-  MainForm: TMainForm;
+  ViewMain: TViewMain;
 
 implementation
 
 {$R *.dfm}
 
-uses dm.main, view.cadastro.banco, view.cadastro.cedente, view.cadastro.titulo;
+uses dm.main, view.cadastro.banco, view.cadastro.cedente, view.cadastro.titulo, view.consulta.banco, view.base, view.cadastro.bancos, view.consulta.bancos;
 
 { TfrxReportList }
 
@@ -186,7 +192,7 @@ end;
 
 {Main Form}
 
-procedure TMainForm.FileNew1Execute(Sender: TObject);
+procedure TViewMain.FileNew1Execute(Sender: TObject);
 begin
   with FReportList.CreateNewReport do
   begin
@@ -197,24 +203,25 @@ begin
   end;
 end;
 
-procedure TMainForm.FileExit1Execute(Sender: TObject);
+procedure TViewMain.FileExit1Execute(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TMainForm.FormCreate(Sender: TObject);
+procedure TViewMain.FormCreate(Sender: TObject);
 begin
   FReportList := TfrxReportList.Create;
+  SplitView1.Opened := False;
 end;
 
-procedure TMainForm.FormDestroy(Sender: TObject);
+procedure TViewMain.FormDestroy(Sender: TObject);
 begin
   FReportList.Free;
 end;
 
-procedure TMainForm.AbreForm<T>(aParent: TWinControl);
+procedure TViewMain.AbreForm<T>(aParent: TWinControl; aDocked: Boolean);
 var
-  aForm: T;
+  aForm: TForm;
   I: Integer;
   bAchouParent: Boolean;
   oForm: T;
@@ -236,9 +243,12 @@ begin
     aForm := T.Create(Self);
     aForm.Parent := aParent;
     aForm.BorderStyle := bsNone;
-//    aForm.Align := alClient;
     aForm.WindowState := wsNormal;
     aForm.onClose := FormCloseChild;
+
+    if aDocked then
+      aForm.ManualDock(pgc1);
+
     aForm.onActivate := FormActivateChild;
     aForm.Show;
 
@@ -248,27 +258,37 @@ begin
 
 end;
 
-procedure TMainForm.actMenuCadBancoExecute(Sender: TObject);
+procedure TViewMain.actMenuCadBancoExecute(Sender: TObject);
 begin
-  AbreForm<TViewCadBanco>(ViewCadBanco);
+  AbreForm<TViewCadastroBancos>(ViewCadastroBancos);
 end;
 
-procedure TMainForm.actMenuCadCendenteExecute(Sender: TObject);
+procedure TViewMain.actMenuCadCendenteExecute(Sender: TObject);
 begin
    AbreForm<TViewCadCedente>(ViewCadCedente);
 end;
 
-procedure TMainForm.actMenuCadTituloExecute(Sender: TObject);
+procedure TViewMain.actMenuCadTituloExecute(Sender: TObject);
 begin
   AbreForm<TViewCadastroTitulo>(ViewCadastroTitulo);
 end;
 
-procedure TMainForm.actMenuConsBancoExecute(Sender: TObject);
+procedure TViewMain.actMenuConsBancoExecute(Sender: TObject);
 begin
-//  AbreForm<TViewCadCedente>(ViewCadCedente);
+  AbreForm<TViewConsultaBancos>(ViewConsultaBancos);
 end;
 
-procedure TMainForm.DestroyDesigner(Sender: TObject);
+procedure TViewMain.actMenuConsTituloExecute(Sender: TObject);
+begin
+  AbreForm<TViewBase>(ViewBase);
+end;
+
+procedure TViewMain.btnOpenPanelClick(Sender: TObject);
+begin
+  SplitView1.Opened := not SplitView1.Opened;
+end;
+
+procedure TViewMain.DestroyDesigner(Sender: TObject);
 var
   idx: Integer;
 begin
@@ -278,7 +298,7 @@ begin
   FReportList.Delete(idx);
 end;
 
-procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TViewMain.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   idx: Integer;
 begin
@@ -287,7 +307,7 @@ begin
   Action := caFree;
 end;
 
-procedure TMainForm.FileSave1Execute(Sender: TObject);
+procedure TViewMain.FileSave1Execute(Sender: TObject);
 var
   idx: Integer;
 begin
@@ -295,7 +315,7 @@ begin
     TfrxDesignerForm(FReportList.Report[idx].Designer).SaveCmd.Execute;
 end;
 
-procedure TMainForm.PreviewReportExecute(Sender: TObject);
+procedure TViewMain.PreviewReportExecute(Sender: TObject);
 var
   idx: Integer;
 begin
@@ -303,7 +323,7 @@ begin
     FReportList.Report[idx].ShowReport;
 end;
 
-procedure TMainForm.frxReportBeforePrint(Sender: TfrxReportComponent);
+procedure TViewMain.frxReportBeforePrint(Sender: TfrxReportComponent);
 var emvQrCode: String;
 begin
   emvQrCode := Trim(dmReport.qryTitulo.FieldByName('EMV').AsString);
@@ -317,7 +337,7 @@ begin
 end;
 
 
-procedure TMainForm.FormCloseChild(Sender: TObject; var Action: TCloseAction);
+procedure TViewMain.FormCloseChild(Sender: TObject; var Action: TCloseAction);
 begin
   if Assigned(TViewCadBanco(Sender)) then
   begin
@@ -336,7 +356,7 @@ begin
   StatusBar.Panels[3].Text := IntToStr(FTelasFilhaAberta);
 end;
 
-procedure TMainForm.FormActivateChild(Sender: TObject);
+procedure TViewMain.FormActivateChild(Sender: TObject);
 begin
 //   if ActiveMDIChild <> nil then
 //  if Assigned(TViewCadBanco(Sender)) then

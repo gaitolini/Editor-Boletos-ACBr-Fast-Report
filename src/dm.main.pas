@@ -15,7 +15,6 @@ uses
 
 type
   TdmReport = class(TDataModule)
-    connReportDB: TFDConnection;
     trsReportDB: TFDTransaction;
     qryBanco: TFDQuery;
     FDPhysSQLiteDriverLink1: TFDPhysSQLiteDriverLink;
@@ -35,27 +34,14 @@ type
     qryBancoDirLogo: TStringField;
     qryBancoOrientacoesBanco: TStringField;
     qryBancoCIP: TStringField;
-    qryCendenteID: TFDAutoIncField;
-    qryCendenteNome: TStringField;
-    qryCendenteCodigoCedente: TStringField;
-    qryCendenteCodigoTransmissao: TStringField;
-    qryCendenteAgencia: TStringField;
-    qryCendenteAgenciaDigito: TStringField;
-    qryCendenteConta: TStringField;
-    qryCendenteContaDigito: TStringField;
-    qryCendenteModalidade: TStringField;
-    qryCendenteConvenio: TStringField;
-    qryCendenteResponEmissao: TIntegerField;
-    qryCendenteCNPJCPF: TStringField;
-    qryCendenteTipoInscricao: TIntegerField;
-    qryCendenteLogradouro: TStringField;
-    qryCendenteNumeroRes: TStringField;
-    qryCendenteComplemento: TStringField;
-    qryCendenteBairro: TStringField;
-    qryCendenteCidade: TStringField;
-    qryCendenteUF: TStringField;
-    qryCendenteCEP: TStringField;
-    qryCendenteTelefone: TStringField;
+    frxSacado: TfrxDBDataset;
+    qrySacado: TFDQuery;
+    dsSacado: TDataSource;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDGUIxLoginDialog1: TFDGUIxLoginDialog;
+    FDGUIxErrorDialog1: TFDGUIxErrorDialog;
+    FDGUIxAsyncExecuteDialog1: TFDGUIxAsyncExecuteDialog;
+    connReportDB: TFDConnection;
     qryTituloID: TFDAutoIncField;
     qryTituloNossoNum: TStringField;
     qryTituloCodCedente: TStringField;
@@ -93,9 +79,40 @@ type
     qryTituloAsbace: TStringField;
     qryTituloEMV: TStringField;
     qryTituloArquivoLogoEmp: TStringField;
-    frxSacado: TfrxDBDataset;
-    qrySacado: TFDQuery;
-    dsSacado: TDataSource;
+    qryTituloSacado_NomeSacado: TStringField;
+    qryTituloSacado_CNPJCPF: TStringField;
+    qryTituloSacado_Logradouro: TStringField;
+    qryTituloSacado_Complemento: TStringField;
+    qryTituloSacado_Numero: TStringField;
+    qryTituloSacado_Bairro: TStringField;
+    qryTituloSacado_Cidade: TStringField;
+    qryTituloSacado_UF: TStringField;
+    qryTituloSacado_CEP: TStringField;
+    qryTituloSacado_Avalista: TStringField;
+    qryTituloSacado_Avalista_CNPJCPF: TStringField;
+    qryTituloSacado_Fone: TStringField;
+    qryTituloMensagem2: TBlobField;
+    qryCendenteID: TFDAutoIncField;
+    qryCendenteNome: TStringField;
+    qryCendenteCodigoCedente: TStringField;
+    qryCendenteCodigoTransmissao: TStringField;
+    qryCendenteAgencia: TStringField;
+    qryCendenteAgenciaDigito: TStringField;
+    qryCendenteConta: TStringField;
+    qryCendenteContaDigito: TStringField;
+    qryCendenteModalidade: TStringField;
+    qryCendenteConvenio: TStringField;
+    qryCendenteResponEmissao: TIntegerField;
+    qryCendenteCNPJCPF: TStringField;
+    qryCendenteTipoInscricao: TIntegerField;
+    qryCendenteLogradouro: TStringField;
+    qryCendenteNumeroRes: TStringField;
+    qryCendenteComplemento: TStringField;
+    qryCendenteBairro: TStringField;
+    qryCendenteCidade: TStringField;
+    qryCendenteUF: TStringField;
+    qryCendenteCEP: TStringField;
+    qryCendenteTelefone: TStringField;
     qrySacadoID: TFDAutoIncField;
     qrySacadoNomeSacado: TStringField;
     qrySacadoCNPJCPF: TStringField;
@@ -109,22 +126,6 @@ type
     qrySacadoAvalista: TStringField;
     qrySacadoAvalista_CNPJCPF: TStringField;
     qrySacadoFone: TStringField;
-    qryTituloSacado_NomeSacado: TStringField;
-    qryTituloSacado_CNPJCPF: TStringField;
-    qryTituloSacado_Logradouro: TStringField;
-    qryTituloSacado_Complemento: TStringField;
-    qryTituloSacado_Numero: TStringField;
-    qryTituloSacado_Bairro: TStringField;
-    qryTituloSacado_Cidade: TStringField;
-    qryTituloSacado_UF: TStringField;
-    qryTituloSacado_CEP: TStringField;
-    qryTituloSacado_Avalista: TStringField;
-    qryTituloSacado_Avalista_CNPJCPF: TStringField;
-    qryTituloSacado_Fone: TStringField;
-    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
-    FDGUIxLoginDialog1: TFDGUIxLoginDialog;
-    FDGUIxErrorDialog1: TFDGUIxErrorDialog;
-    FDGUIxAsyncExecuteDialog1: TFDGUIxAsyncExecuteDialog;
     procedure DataModuleCreate(Sender: TObject);
     procedure connReportDBBeforeConnect(Sender: TObject);
   private
@@ -139,6 +140,9 @@ var
   dmReport: TdmReport;
 
 implementation
+
+uses
+  view.main;
 
 {$R *.dfm}
 

@@ -1,9 +1,9 @@
-object MainForm: TMainForm
+object ViewMain: TViewMain
   Left = 268
   Top = 128
-  Caption = 'MDI Designer application'
-  ClientHeight = 374
-  ClientWidth = 663
+  Caption = 'Fastreport + ACBr + MDI Forms + Firedac + SQLite'
+  ClientHeight = 757
+  ClientWidth = 1024
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBlack
@@ -4328,8 +4328,8 @@ object MainForm: TMainForm
   TextHeight = 13
   object StatusBar: TStatusBar
     Left = 0
-    Top = 355
-    Width = 663
+    Top = 738
+    Width = 1024
     Height = 19
     AutoHint = True
     Panels = <
@@ -4354,7 +4354,7 @@ object MainForm: TMainForm
   object ToolBar2: TToolBar
     Left = 0
     Top = 0
-    Width = 663
+    Width = 1024
     Height = 30
     BorderWidth = 1
     Color = clBtnFace
@@ -4431,18 +4431,18 @@ object MainForm: TMainForm
       Caption = 'tb2'
       ImageIndex = 3
     end
-    object tb3: TToolButton
+    object tbCadBanco: TToolButton
       Left = 190
+      Top = 0
+      Action = actMenuCadBanco
+    end
+    object tb3: TToolButton
+      Left = 213
       Top = 0
       Width = 8
       Caption = 'tb3'
       ImageIndex = 4
       Style = tbsSeparator
-    end
-    object tbCadBanco: TToolButton
-      Left = 198
-      Top = 0
-      Action = actMenuCadBanco
     end
     object tbCadCedente: TToolButton
       Left = 221
@@ -4477,6 +4477,61 @@ object MainForm: TMainForm
       Top = 0
       Action = actMenuConsTitulo
     end
+  end
+  object SplitView1: TSplitView
+    Left = 374
+    Top = 30
+    Width = 650
+    Height = 708
+    CloseStyle = svcCompact
+    CompactWidth = 30
+    OpenedWidth = 650
+    Placement = svpRight
+    TabOrder = 2
+    object pgc1: TPageControl
+      Left = 30
+      Top = 0
+      Width = 620
+      Height = 708
+      Align = alClient
+      DockSite = True
+      TabOrder = 0
+    end
+    object pnl1: TPanel
+      Left = 0
+      Top = 0
+      Width = 30
+      Height = 708
+      Align = alLeft
+      BevelOuter = bvNone
+      Caption = 'pnl1'
+      ShowCaption = False
+      TabOrder = 1
+      object btnOpenPanel: TButton
+        AlignWithMargins = True
+        Left = 4
+        Top = 6
+        Width = 22
+        Height = 696
+        Margins.Left = 4
+        Margins.Top = 6
+        Margins.Right = 4
+        Margins.Bottom = 6
+        Align = alClient
+        Caption = '<'
+        TabOrder = 0
+        OnClick = btnOpenPanelClick
+      end
+    end
+  end
+  object RLBarcode1: TRLBarcode
+    Left = 224
+    Top = 144
+    Width = 87
+    Height = 34
+    Margins.LeftMargin = 1.000000000000000000
+    Margins.RightMargin = 1.000000000000000000
+    Transparent = False
   end
   object ActionList1: TActionList
     Images = ImageList1
@@ -4578,6 +4633,7 @@ object MainForm: TMainForm
       Caption = 'Consulta de t'#237'tulo'
       Hint = 'Consulta de t'#237'tulo'
       ImageIndex = 10
+      OnExecute = actMenuConsTituloExecute
     end
   end
   object ImageList1: TImageList
@@ -5122,9 +5178,5 @@ object MainForm: TMainForm
   object MainMenu1: TMainMenu
     Left = 45
     Top = 245
-  end
-  object frxBarCodeObject1: TfrxBarCodeObject
-    Left = 45
-    Top = 109
   end
 end

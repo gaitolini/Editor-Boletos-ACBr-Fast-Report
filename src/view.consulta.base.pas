@@ -1,4 +1,4 @@
-unit uFormConsultaBase;
+unit view.consulta.base;
 
 interface
 
@@ -12,14 +12,18 @@ uses
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.SQLite,
   FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.VCLUI.Wait,
   FireDAC.VCLUI.Login, FireDAC.VCLUI.Error, FireDAC.VCLUI.Async, FireDAC.Comp.UI,
-  view.child.base;
+  view.child.base, Vcl.StdCtrls, System.ImageList, Vcl.ImgList,
+  Vcl.Imaging.pngimage;
 
 type
-  TFormConsultaBase = class(TViiewChildBase)
+  TViewConsultaBase = class(TViiewChildBase)
     DBGrid1: TDBGrid;
     DBNavigator1: TDBNavigator;
     dsFormConsulta: TDataSource;
     qryFormConsulta: TFDQuery;
+    edtSearch: TEdit;
+    btnSearch: TButton;
+    grConsultaBase: TDBGrid;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -28,13 +32,13 @@ type
   end;
 
 var
-  FormConsultaBase: TFormConsultaBase;
+  ViewConsultaBase: TViewConsultaBase;
 
 implementation
 
 {$R *.dfm}
 
-procedure TFormConsultaBase.FormCreate(Sender: TObject);
+procedure TViewConsultaBase.FormCreate(Sender: TObject);
 begin
   inherited;
 //  qryFormConsulta.Active := True;
